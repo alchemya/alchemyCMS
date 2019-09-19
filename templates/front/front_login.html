@@ -1,0 +1,36 @@
+{% extends 'front/front_signbase.html' %}
+
+{% block title %}
+    登陆
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ static('front/css/front_signup.css') }}">
+    <script src="{{ static('front/js/front_signup.js') }}"></script>
+    <script src="{{ url_for('static', filename='front/js/front_signin.js') }}"></script>
+{% endblock %}
+
+{% block form_content %}
+    <div class="form_signup">
+        <div class="form-group">
+            <input type="text" class="form-control"  placeholder="请输入手机号" name="telephone">
+        </div>
+        <div class="form-group">
+            <input type="password" class="form-control"  placeholder="密码" name="password">
+        </div>
+        <div class="checkbox">
+            <label style="margin-left: -232px " >
+                <input type="checkbox" name="remember" value="1"  >记住我
+            </label>
+        </div>
+        <div class="form-group">
+            <span style="display:none;" id="return-to-span">{{ return_to }}</span>
+            <button class="btn btn-warning btn-block" id="login-submit-btn">立即登录</button>
+        </div>
+        <div class="form-group">
+            <a href="{{ url_for("front.signup") }}" class="signup-link" style="float: left">没有账号？立即注册</a>
+            <a href="{{ url_for('front.i_forget') }}" class="resetpwd-link" style="float:right;">找回密码</a>
+        </div>
+                <br><br>
+        </div>
+{% endblock %}

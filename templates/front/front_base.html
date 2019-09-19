@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    {% include 'common/_heads.html' %}
+    <link rel="stylesheet" href="{{ url_for("static",filename='front/css/front_base.css') }}">
+    {% block head %}{% endblock %}
+</head>
+<body>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url_for('front.index') }}" >
+                    <img class="logo" src="{{ url_for('static',filename='cms/images/logo.png') }}" ></a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="{{ url_for('front.index') }}">首页 <span class="sr-only">(current)</span></a></li>
+                    <li><a href="#">进入论坛</a></li>
+                </ul>
+                <form class="navbar-form navbar-left" action="{{ url_for('front.search') }}" method="get">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="输入关键字" name="q">
+                    </div>
+                    <button type="submit" class="btn btn-default">查找</button>
+                </form>
+                <ul class="nav navbar-nav navbar-right">
+                    {% if g.front_user %}
+                        <span id="login-tag" data-is-login="1"></span>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="true">
+                                {{ g.front_user.username }}
+                                <span class="caret"></span>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="#">个人中心</a></li>
+                                <li><a href="#">设置</a></li>
+                                <li><a href="{{ url_for('front.log_out') }}">退出登录</a></li>
+                            </ul>
+                        </li>
+                    {% else %}
+                        <li><a href="{{ url_for('front.login_in') }}">登录</a></li>
+                        <li><a href="{{ url_for('front.signup') }}">注册</a></li>
+                    {% endif %}
+                 </ul>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+    <div class="main-container">
+        {% block body %}{% endblock %}
+
+    </div>
+    <br><br>
+    <div style="margin:0 auto;text-align: center">
+     <div class="footer-box">
+        <div class="foot-nav">
+            <a href="3" target="_blank">abc360官网</a>
+            <span>|</span>
+            <a href="#" target="_blank">兰迪官网</a>
+            <span>|</span>
+            <a href="/help/service" target="_blank">AngleEye</a>
+            <span>|</span>
+            <a href="/help/goodlink" target="_blank">员工ERP系统</a>
+            <span>|</span>
+            <a href="/help/goodlink" target="_blank">OA系统</a>
+            <!--<span>|</span><a href="/points/gifts" target="_blank">积分商城</a>-->
+        </div>
+        <div class="foot-nav2">
+            <div style="margin-top:6px;">Copyright © 2017 杭州旦悦科技有限公司 All Rights Reserved. </div>
+        </div>
+         <br>
+         <br>
+    </div>
+    </div>
+
+
+
+</body>
+</html>

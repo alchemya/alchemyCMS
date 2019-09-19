@@ -1,0 +1,128 @@
+{% extends 'front/front_base.html' %}
+{% block title %}
+    兰迪广场
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename= 'front/css/front_index.css') }}">
+{% endblock %}
+
+{% block body %}
+    <div id="carousel-example-generic" class="carousel slide index-banner" data-ride="carousel">
+        <!-- 指示器 -->
+        <ol class="carousel-indicators">
+            <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+            <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+        </ol>
+
+        <!-- 轮播图 -->
+        <div class="carousel-inner " role="listbox">
+            {% for banner in banners %}
+                {% if loop.first %}
+                     <div class="item active">
+                {% else %}
+                    <div class="item">
+                {% endif %}
+                    <a  href="{{ banner.link_url }}"><img src="{{ banner.image_url }}"
+                                 alt="..." style="width: 970px;height: 300px" >
+                        <span style="margin-left: 468px">{{ banner.name }}</span>
+                    </a>
+
+                    </div>
+            {% endfor %}
+        </div>
+
+
+        <!-- 左右切换的控制按钮 -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+
+
+    <div class="post-group">
+        <ul class="post-group-head">
+              {% if current_sort==1 %}
+                    <li class="active"><a href="{{ url_for('front.index',bd=current_board) }}">最新</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('front.index',bd=current_board) }}">最新</a></li>
+                {% endif %}
+
+                {% if current_sort==2 %}
+                    <li class="active"><a href="{{ url_for('front.index',st=2,bd=current_board) }}">精华帖子</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('front.index',st=2,bd=current_board) }}">精华帖子</a></li>
+                {% endif %}
+
+                {% if current_sort==3 %}
+                    <li class="active"><a href="{{ url_for('front.index',st=3,bd=current_board) }}">阅读最多</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('front.index',st=3,bd=current_board) }}">阅读最多</a></li>
+                {% endif %}
+
+                {% if current_sort==4 %}
+                    <li class="active"><a href="{{ url_for('front.index',st=4,bd=current_board) }}">评论最多</a></li>
+                {% else %}
+                    <li><a href="{{ url_for('front.index',st=4,bd=current_board) }}">评论最多</a></li>
+            {% endif %}
+        </ul>
+        <ul class="post-list-group">
+            {% for post in posts %}
+            <li>
+                <div class="author-avatar-group">
+                <img src="{{ post.author.awatar or url_for('static',filename='landi_favicon.ico') }}" alt="">
+                </div>
+                <div class="post-info-group">
+                    <p class="post-title"><a href="{{ url_for('front.post_detail',post_id=post.id) }}">{{ post.title }}</a>
+                    {% if post.highlight %}
+                        <span class="label label-danger">精华帖</span>
+                    {% endif %}
+                    </p>
+                    <p class="post-info">
+                        <span>作者:{{ post.author.username }}</span>
+                        <span>发表时间:{{ post.create_time }}</span>
+                        <span>评论:{{ post.comments|count }}</span>
+                        <span>阅读数 :{{ post.reading_count }}</span>
+                    </p>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+        <div style="text-align: center">
+            {{ pagination.links }}
+        </div>
+
+    </div>
+
+    <div class="sm-container">
+
+        <div class="sm-container">
+            <div style="margin-bottom: 10px; margin-top: 20px">
+                <a class="btn btn-warning btn-block" href="{{ url_for('front.add_post',cboard=current_board) }}" id="add-post-btn">发布帖子</a>
+            </div>
+
+
+            <div class="list-group">
+                {% if current_board %}
+                    <a href="/" class="list-group-item">所有板块</a>
+                {% else %}
+                 <a href="/" class="list-group-item active">所有板块</a>
+                {% endif %}
+                {% for board in boards %}
+                    {% if board.id==current_board %}
+                     <a href="{{ url_for('front.index',bd=board.id) }}" class="list-group-item active">{{ board.name }}</a>
+                    {% else %}
+                    <a href="{{ url_for('front.index',bd=board.id) }}" class="list-group-item">{{ board.name }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

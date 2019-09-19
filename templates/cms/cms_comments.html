@@ -1,0 +1,40 @@
+{% extends 'cms/cms_base.html' %}
+
+{% block title %}
+    评论管理-CMS管理系统
+{% endblock %}
+
+{% block page_title %}
+    评论管理
+{% endblock %}
+
+{% block main_content %}
+    <table class="table table-bordered" style="word-break:break-all; word-wrap:break-all;">
+        <thead>
+        <tr>
+            <th>评论内容</th>
+            <th>评论所属文章</th>
+            <th>评论时间</th>
+            <th>作者</th>
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr data-id={{ comment.id }} >
+                <td><a target="_blank" href="{{ url_for('front.post_detail',post_id=comment.post_id) }}">{{ comment.content }}</a>
+                </td>
+                <td>{{ comment.post.title }}</td>
+                <td>{{ comment.create_time }}</td>
+                <td>{{ comment.author.username }}</td>
+                <td>
+                    <button class="btn btn-danger btn-xs highlight-btn">删除</button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div style="text-align: center">
+
+    </div>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'cms/cms_base.html' %}
+
+{% block title %}
+    修改邮箱
+{% endblock %}
+
+{% block page_title %}
+    {{ self.title() }}
+{% endblock %}
+
+{% block head %}
+    <style>
+        .form_email {
+            width: 320px;
+        }
+        #btn{
+            border: 0;
+            background-color: transparent;
+            outline: none;
+
+            margin-left: -17px;
+            margin-right: -18px;
+
+        }
+
+
+
+    </style>
+    <script src="{{ url_for('static',filename='cms/js/resetemail.js') }}"></script>
+{% endblock %}
+
+{% block main_content %}
+    <form method="post" action="">
+        <div class="form_email">
+
+            <div class="form-group">
+                <div class="input-group ">
+                    <div class="input-group-addon">旧邮箱</div>
+                    <input type="text" class="form-control" placeholder="{{ g.cms_user.email }}" readonly   >
+                </div>
+            </div>
+
+
+
+
+            <div class="form-group ">
+                <div class="input-group ">
+                    <div class="input-group-addon">新邮箱</div>
+                    <input type="email" class="form-control" placeholder="填写邮箱地址" name="email">
+                    <div class="input-group-addon"  id="get_captcha">
+                        <input type="button" id="btn" value="获取验证码"  />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group ">
+                <div class="input-group ">
+                    <div class="input-group-addon" >验证码</div>
+                    <input type="text" class="form-control " placeholder="填写验证码" name="captcha">
+                </div>
+            </div>
+
+
+            <button type="submit" class="btn btn-primary" id="submit">提交修改</button>
+
+        </div>
+
+    </form>
+{% endblock %}

@@ -1,0 +1,28 @@
+{% from 'common/macros.html' import static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <script src="https://cdn.bootcss.com/blueimp-md5/2.10.0/js/md5.min.js"></script>
+    {% include 'common/_heads.html' %}
+
+    {% block head %}{% endblock %}
+
+</head>
+<body>
+<div class="outer-box">
+    <div class="logo-box">
+        <a href="/">
+            <img src="{{ static('cms/images/logo.png') }}" alt="">
+        </a>
+    </div>
+    <br>
+    {% block form_content %}{% endblock %}
+    <span style="display:none;" id="return-to-span">{{ return_to }}</span>
+</div>
+
+
+</body>
+</html>

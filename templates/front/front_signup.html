@@ -1,0 +1,50 @@
+{% extends 'front/front_signbase.html' %}
+{% block title %}
+    注册
+{% endblock %}
+{% block head %}
+        <link rel="stylesheet" href="{{ static('front/css/front_signup.css') }}">
+    <script src="{{ static('front/js/front_signup.js') }}"></script>
+{% endblock %}
+
+{% block form_content %}
+        <div class="form_signup">
+
+                <div class="form-group">
+                    <div class="input-group">
+                    <input type="text" class="form-control"  placeholder="注册手机号码" name="telephone">
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button" id="sms-captcha-btn">发送验证码</button>
+                    </span>
+                </div>
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control"  placeholder="短信验证码" name="sms_captcha">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control"  placeholder="用户名" name="username">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control"  placeholder="密码" name="password1">
+                </div>
+                <div class="form-group">
+                    <input type="password" class="form-control"  placeholder="确认密码" name="password2">
+                </div>
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" class="form-control"  placeholder="图形验证码" name="graph_captcha">
+                        <span class="input-group-addon captcha-addon">
+                                <img class="captcha-img" src="{{ url_for('common.graph_captcha') }}" alt=""
+                                     id="captcha-img">
+                        </span>
+                    </div>
+                </div>
+            <span style="display:none;" id="return-to-span">{{ return_to }}</span>
+                <button type="submit" class="btn btn-primary btn-block" id="submit-btn">立即注册</button>
+                <br>
+        </div>
+{% endblock %}
+
+
+
+

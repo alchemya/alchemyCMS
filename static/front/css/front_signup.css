@@ -1,0 +1,33 @@
+body{
+            background-color: #f3f3f3;
+        }
+        .outer-box{
+            width: 854px;
+            background-color: #fff;
+
+            margin:72px auto ;
+            overflow: hidden;
+            text-align: center;
+            padding-bottom: 30px;
+
+        }
+        .logo-box{
+           padding-top: 60px;
+        }
+        .logo-box img{
+            width: 293px;
+            height: 60px;
+        }
+        .form_signup{
+            width: 300px;
+            margin: 0 auto;
+        }
+        .captcha-addon{
+            padding: 0;
+            overflow: hidden;
+        }
+        .captcha-img{
+            width: 94px;
+            height: 32px;
+            cursor: pointer;
+        }

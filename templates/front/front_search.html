@@ -1,0 +1,71 @@
+{% extends 'front/front_base.html' %}
+{% block title %}
+    兰迪广场
+{% endblock %}
+
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static',filename= 'front/css/front_index.css') }}">
+{% endblock %}
+
+{% block body %}
+
+
+
+    <div class="post-group">
+        <ul class="post-list-group">
+        {% if posts %}
+            {% for post in posts %}
+            <li>
+                <div class="author-avatar-group">
+                <img src="{{ post.author.awatar or url_for('static',filename='landi_favicon.ico') }}" alt="">
+                </div>
+                <div class="post-info-group">
+                    <p class="post-title"><a href="{{ url_for('front.post_detail',post_id=post.id) }}">{{ post.title }}</a>
+                    {% if post.highlight %}
+                        <span class="label label-danger">精华帖</span>
+                    {% endif %}
+                    </p>
+                    <p class="post-info">
+                        <span>作者:{{ post.author.username }}</span>
+                        <span>发表时间:{{ post.create_time }}</span>
+                        <span>评论:{{ post.comments|count }}</span>
+                        <span>阅读数 :{{ post.reading_count }}</span>
+                    </p>
+                </div>
+            </li>
+            {% endfor %}
+        {% else %}
+            <p style="font-size: 18px;text-align: center">暂时没有搜到你想要的内容,So Sad......</p>
+        {% endif %}
+        </ul>
+        <div style="text-align: center">
+
+        </div>
+
+    </div>
+
+    <div class="sm-container">
+
+        <div class="sm-container">
+            <div style="margin-bottom: 10px; margin-top: 20px">
+                <a class="btn btn-warning btn-block" href="{{ url_for('front.add_post',cboard=current_board) }}" id="add-post-btn">发布帖子</a>
+            </div>
+
+
+            <div class="list-group">
+                {% if current_board %}
+                    <a href="/" class="list-group-item">所有板块</a>
+                {% else %}
+                 <a href="/" class="list-group-item active">所有板块</a>
+                {% endif %}
+                {% for board in boards %}
+                    {% if board.id==current_board %}
+                     <a href="{{ url_for('front.index',bd=board.id) }}" class="list-group-item active">{{ board.name }}</a>
+                    {% else %}
+                    <a href="{{ url_for('front.index',bd=board.id) }}" class="list-group-item">{{ board.name }}</a>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

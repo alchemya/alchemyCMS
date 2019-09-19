@@ -1,0 +1,41 @@
+{% extends 'cms/cms_base.html' %}
+
+{% block title %}
+    前台用户管理-CMS管理系统
+{% endblock %}
+
+{% block page_title %}
+    前台用户管理
+{% endblock %}
+
+{% block main_content %}
+    <table class="table table-bordered" style="word-break:break-all; word-wrap:break-all;">
+        <thead>
+        <tr>
+            <th>用户id</th>
+            <th>用户注册电话</th>
+            <th>名字</th>
+            <th>注册时间</th>
+
+            <th>操作</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr data-id={{ user.id }} >
+                <td>{{ user.id}}</td>
+                <td>{{ user.telephone}}</td>
+                <td>{{ user.username}}</td>
+                <td>{{ user.join_time }}</td>
+                <td>
+                        <button class="btn btn-info btn-xs highlight-btn">禁言</button>
+
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    <div style="text-align: center">
+
+    </div>
+{% endblock %}
